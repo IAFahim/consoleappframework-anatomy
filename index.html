@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ConsoleAppFramework · Anatomy</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #161616; color: #d6d3cb;
+    font: 15px/1.65 "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 56px 24px 80px; }
+  header h1 { font-size: 26px; font-weight: 600; letter-spacing: 0.04em; margin: 0 0 8px; color: #f0ede5; }
+  header h1 span { color: #8a877f; }
+  header p.sub { margin: 0 0 6px; color: #a8a49a; }
+  header p.lede { margin: 18px 0 0; color: #c9c5bb; max-width: 72ch; }
+  header a { color: #e8e4da; }
+  .grid { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px; }
+  a.card { display: block; text-decoration: none; color: inherit; border: 1px solid #2c2b27; border-radius: 10px; overflow: hidden; background: #1b1b19; transition: border-color .15s ease; }
+  a.card:hover, a.card:focus-visible { border-color: #57544c; }
+  .card img { display: block; width: 100%; aspect-ratio: 658/450; object-fit: cover; object-position: center; background: #161616; }
+  .card .t { padding: 12px 16px 4px; color: #f0ede5; font-weight: 600; letter-spacing: 0.02em; }
+  .card .t em { font-style: normal; color: #8a877f; margin-right: 8px; }
+  .card .d { padding: 0 16px 14px; color: #a19d93; font-size: 13px; line-height: 1.55; }
+  .card .v { padding: 0 16px 16px; font-size: 12px; color: #7b776f; }
+  .card .v a { color: #a8a49a; margin-right: 10px; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid #2c2b27; color: #7b776f; font-size: 13px; }
+  footer a { color: #a8a49a; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>ConsoleAppFramework <span>· anatomy</span></h1>
+    <p class="sub">ten interactive isometric figures explaining how a zero-reflection CLI framework really works</p>
+    <p class="lede">
+      ConsoleAppFramework is a Roslyn source generator that emits the whole entry point of your CLI —
+      parse loop, routing switch, help text, filters, DI wiring — as ordinary C# into your own assembly.
+      It is a function-like macro, not a reflection framework.
+      Each figure below is a small physical machine whose working is one topic of the design.
+      The full write-up is in <a href="docs/why-and-architecture.md">docs/why-and-architecture.md</a>.
+    </p>
+  </header>
+
+  <div class="grid">
+    <a class="card" href="anatomy/figures/01-machine-line/machine-line.html">
+      <img src="anatomy/figures/01-machine-line/shots/desktop.png" alt="Fig 1 — the machine line">
+      <div class="t"><em>Fig 1</em>The machine line</div>
+      <div class="d">Overview: a blueprint stand holds your lambda, a press emits the Run body, a switch routes it, a flywheel runs it, a bell rings the exit code.</div>
+      <div class="v"><a href="anatomy/figures/01-machine-line/machine-line.html">dark</a><a href="anatomy/figures/01-machine-line/machine-line-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/02-code-press/code-press.html">
+      <img src="anatomy/figures/02-code-press/code-press.html" data-src="anatomy/figures/02-code-press/shots/desktop.png" alt="Fig 2 — the code press">
+      <div class="t"><em>Fig 2</em>The code press</div>
+      <div class="d">The source generator: a punch press that stamps the emitted Run body from your lambda like a receipt, line by line.</div>
+      <div class="v"><a href="anatomy/figures/02-code-press/code-press.html">dark</a><a href="anatomy/figures/02-code-press/code-press-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/03-switchyard/switchyard.html">
+      <img src="anatomy/figures/03-switchyard/shots/desktop.png" alt="Fig 3 — the switch yard">
+      <div class="t"><em>Fig 3</em>The switch yard</div>
+      <div class="d">Command routing: a string-constant switch over registered names, exact match first, an OrdinalIgnoreCase fallback second, help short-circuits first.</div>
+      <div class="v"><a href="anatomy/figures/03-switchyard/switchyard.html">dark</a><a href="anatomy/figures/03-switchyard/switchyard-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/04-parsing-station/parsing-station.html">
+      <img src="anatomy/figures/04-parsing-station/shots/desktop.png" alt="Fig 4 — the parsing station">
+      <div class="t"><em>Fig 4</em>The parsing station</div>
+      <div class="d">One pass over argv: a reader walks the tokens once and drops each value into its slot — int.TryParse, ISpanParsable, enums, bool flags, arrays, params, and the <code>--</code> escape.</div>
+      <div class="v"><a href="anatomy/figures/04-parsing-station/parsing-station.html">dark</a><a href="anatomy/figures/04-parsing-station/parsing-station-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/05-help-letterpress/help-letterpress.html">
+      <img src="anatomy/figures/05-help-letterpress/shots/desktop.png" alt="Fig 5 — the help letterpress">
+      <div class="t"><em>Fig 5</em>The help letterpress</div>
+      <div class="d">Help text composed at compile time from doc comments and emitted as raw string literals — printed in one stroke before routing ever happens.</div>
+      <div class="v"><a href="anatomy/figures/05-help-letterpress/help-letterpress.html">dark</a><a href="anatomy/figures/05-help-letterpress/help-letterpress-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/06-filter-canal/filter-canal.html">
+      <img src="anatomy/figures/06-filter-canal/shots/desktop.png" alt="Fig 6 — the filter canal">
+      <div class="t"><em>Fig 6</em>The filter canal</div>
+      <div class="d">The middleware pipeline: global filters, class filters and method filters flow around the command in the order you register them, each layer allocating once.</div>
+      <div class="v"><a href="anatomy/figures/06-filter-canal/filter-canal.html">dark</a><a href="anatomy/figures/06-filter-canal/filter-canal-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/07-service-manifold/service-manifold.html">
+      <img src="anatomy/figures/07-service-manifold/shots/desktop.png" alt="Fig 7 — the service manifold">
+      <div class="t"><em>Fig 7</em>The service manifold</div>
+      <div class="d">DI is opt-in by reference: ConfigureServices runs after routing and before parsing, the provider lands in a static, and it is disposed after the run.</div>
+      <div class="v"><a href="anatomy/figures/07-service-manifold/service-manifold.html">dark</a><a href="anatomy/figures/07-service-manifold/service-manifold-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/08-signal-house/signal-house.html">
+      <img src="anatomy/figures/08-signal-house/shots/desktop.png" alt="Fig 8 — the signal house">
+      <div class="t"><em>Fig 8</em>The signal house</div>
+      <div class="d">Signals and shutdown: SIGINT, SIGTERM and SIGQUIT wired to one handler that cancels the run and arms a five-second fuse; exit 130 either way.</div>
+      <div class="v"><a href="anatomy/figures/08-signal-house/signal-house.html">dark</a><a href="anatomy/figures/08-signal-house/signal-house-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/09-inspector-bench/inspector-bench.html">
+      <img src="anatomy/figures/09-inspector-bench/shots/desktop.png" alt="Fig 9 — the inspector's bench">
+      <div class="t"><em>Fig 9</em>The inspector's bench</div>
+      <div class="d">Diagnostics and validation: duplicate options stamped CAF020, reserved help names stamped CAF019, and DataAnnotations checked at run time — exit 1.</div>
+      <div class="v"><a href="anatomy/figures/09-inspector-bench/inspector-bench.html">dark</a><a href="anatomy/figures/09-inspector-bench/inspector-bench-light.html">light</a></div>
+    </a>
+    <a class="card" href="anatomy/figures/10-twin-rail/twin-rail.html">
+      <img src="anatomy/figures/10-twin-rail/shots/desktop.png" alt="Fig 10 — the twin launch rail">
+      <div class="t"><em>Fig 10</em>The twin launch rail</div>
+      <div class="d">Performance parity by construction: the generated main is the switch you would have written by hand — two carts, one course, the beam stays level.</div>
+      <div class="v"><a href="anatomy/figures/10-twin-rail/twin-rail.html">dark</a><a href="anatomy/figures/10-twin-rail/twin-rail-light.html">light</a></div>
+    </a>
+  </div>
+
+  <footer>
+    ConsoleAppFramework is by <a href="https://github.com/Cysharp/ConsoleAppFramework">Cysharp</a> (MIT).
+    Figures drawn with the <a href="https://github.com/wheresryan22/anatomy">Anatomy</a> drawing kit (MIT, vendored under <code>anatomy/kit</code>).
+    Every figure passes a geometry audit (no interpenetration, no floating ends, true depth order) in both themes.
+  </footer>
+</div>
+<script>
+  document.querySelectorAll("img[data-src]").forEach((img) => { img.src = img.dataset.src; img.removeAttribute("data-src"); });
+</script>
+</body>
+</html>
